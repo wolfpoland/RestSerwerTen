@@ -21,6 +21,13 @@ namespace RestSerwerTen.Controllers
         // GET: Uzytkowniks
         public  IEnumerable<Uzytkownik> Index()
         {
+          /*  List<Uzytkownik> usuwanie = _context.Uzytkownik.ToList();
+            foreach(Uzytkownik item in usuwanie)
+            {
+                _context.Remove(item);
+            }
+            _context.SaveChanges();
+        */
             return  _context.Uzytkownik.ToList();
         }
 
@@ -67,13 +74,16 @@ namespace RestSerwerTen.Controllers
         }
 
         // GET: Uzytkowniks/Edit/5
+        [HttpPut]
         public async Task<IActionResult> Update(int? id, [FromBody] Uzytkownik uzytkownik)
         {
             System.Diagnostics.Debug.WriteLine("update");
+            System.Diagnostics.Debug.WriteLine("ID:" + id);
             System.Diagnostics.Debug.WriteLine("Uzytkownik imie: " + uzytkownik.imie);
             System.Diagnostics.Debug.WriteLine("Uzytkownik nazwisko:" + uzytkownik.nazwisko);
-            System.Diagnostics.Debug.WriteLine("ID:" + id);
-       
+            System.Diagnostics.Debug.WriteLine("Login:" + uzytkownik.login);
+            System.Diagnostics.Debug.WriteLine("Haslo :" + uzytkownik.haslo);
+
             if (id == null)
             {
                 return NotFound();
@@ -82,10 +92,13 @@ namespace RestSerwerTen.Controllers
             var uzytko = _context.Uzytkownik.SingleOrDefault(k => k.Id == id);
             uzytko.imie = uzytkownik.imie;
             uzytko.nazwisko = uzytkownik.nazwisko;
+            uzytko.login = uzytkownik.login;
+            uzytko.haslo = uzytkownik.haslo;
             System.Diagnostics.Debug.WriteLine("Znaleziony uzytkownik");
             System.Diagnostics.Debug.WriteLine("Uzytkownik imie: " + uzytko.imie);
             System.Diagnostics.Debug.WriteLine("Uzytkownik nazwisko:" + uzytko.nazwisko);
-            
+            System.Diagnostics.Debug.WriteLine("login :" + uzytko.login);
+            System.Diagnostics.Debug.WriteLine("haslo :" + uzytko.haslo);
             if (uzytkownik == null || uzytko==null)
             {
                 return NotFound();
@@ -120,6 +133,12 @@ namespace RestSerwerTen.Controllers
             _context.Remove(uzytkownik);
             _context.SaveChanges();
             return Ok();
+        }
+
+        public Uzytkownik logo(string login, string haslo)
+        {
+           Uzytkownik uzy= _context.Uzytkownik.SingleOrDefault(k => k.login == login && k.haslo == haslo);
+            return uzy;
         }
 
         

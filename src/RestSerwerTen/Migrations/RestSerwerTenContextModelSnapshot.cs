@@ -21,7 +21,11 @@ namespace RestSerwerTen.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<string>("haslo");
+
                     b.Property<string>("imie");
+
+                    b.Property<string>("login");
 
                     b.Property<string>("nazwisko");
 

@@ -25,7 +25,9 @@ namespace RestSerwerTen.Models
                    {
                       
                        imie="Patriko",
-                       nazwisko="Fantastico"
+                       nazwisko="Fantastico",
+                       login="login",
+                       haslo="haslo"
                    }
                 );
                 context.SaveChanges();
