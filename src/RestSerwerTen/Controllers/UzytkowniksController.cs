@@ -102,37 +102,7 @@ namespace RestSerwerTen.Controllers
         // POST: Uzytkowniks/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,imie,nazwisko")] Uzytkownik uzytkownik)
-        {
-            if (id != uzytkownik.Id)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(uzytkownik);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!UzytkownikExists(uzytkownik.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction("Index");
-            }
-            return View(uzytkownik);
-        }
+     
 
         // GET: Uzytkowniks/Delete/5
         public async Task<IActionResult> Delete(int? id)
@@ -147,20 +117,12 @@ namespace RestSerwerTen.Controllers
             {
                 return NotFound();
             }
-
-            return View(uzytkownik);
+            _context.Remove(uzytkownik);
+            _context.SaveChanges();
+            return Ok();
         }
 
-        // POST: Uzytkowniks/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var uzytkownik = await _context.Uzytkownik.SingleOrDefaultAsync(m => m.Id == id);
-            _context.Uzytkownik.Remove(uzytkownik);
-            await _context.SaveChangesAsync();
-            return RedirectToAction("Index");
-        }
+        
 
         private bool UzytkownikExists(int id)
         {
