@@ -8,7 +8,7 @@ using RestSerwerTen.Models;
 namespace RestSerwerTen.Migrations
 {
     [DbContext(typeof(RestSerwerTenContext))]
-    [Migration("20160727135146_Initial")]
+    [Migration("20160727085305_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -22,11 +22,7 @@ namespace RestSerwerTen.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("haslo");
-
                     b.Property<string>("imie");
-
-                    b.Property<string>("login");
 
                     b.Property<string>("nazwisko");
 

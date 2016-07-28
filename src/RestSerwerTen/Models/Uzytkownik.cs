@@ -10,7 +10,5 @@ namespace RestSerwerTen.Models
         public int Id { get; set; }
         public string imie { get; set; }
         public string nazwisko { get; set; }
-        public string login { get; set; }
-        public string haslo { get; set; }
     }
 }
