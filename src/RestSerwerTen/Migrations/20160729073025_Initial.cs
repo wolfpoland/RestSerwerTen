@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore.Migrations;
-using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace RestSerwerTen.Migrations
 {
@@ -10,24 +9,26 @@ namespace RestSerwerTen.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Uzytkownik",
+                name: "uzytkowniko",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Npgsql:ValueGeneratedOnAdd", true),
+                    haslo = table.Column<string>(nullable: true),
                     imie = table.Column<string>(nullable: true),
+                    mail = table.Column<string>(nullable: true),
                     nazwisko = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Uzytkownik", x => x.Id);
+                    table.PrimaryKey("PK_uzytkowniko", x => x.Id);
                 });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Uzytkownik");
+                name: "uzytkowniko");
         }
     }
 }

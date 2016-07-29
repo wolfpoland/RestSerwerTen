@@ -53,8 +53,14 @@ namespace RestSerwerTen
             services.AddTransient<IEmailSender, AuthMessageSender>();
             services.AddTransient<ISmsSender, AuthMessageSender>();
 
+            services.AddDbContext<PostgreSqlContext>(
+                options => options.UseNpgsql(Configuration["Data:RestSerwerTenContext:ConnectionString"])
+
+            );
+            /*
             services.AddDbContext<RestSerwerTenContext>(options =>
                     options.UseSqlServer(Configuration["Data:RestSerwerTenContext:ConnectionString"]));
+                    */
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -90,7 +96,7 @@ namespace RestSerwerTen
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
-            SeedData.Initialize(app.ApplicationServices);
+            //SeedData.Initialize(app.ApplicationServices);
         }
     }
 }

@@ -11,28 +11,28 @@ namespace RestSerwerTen.Controllers
 {
     public class UzytkowniksController : Controller
     {
-        private readonly RestSerwerTenContext _context;
+        private readonly PostgreSqlContext _context;
 
-        public UzytkowniksController(RestSerwerTenContext context)
+        public UzytkowniksController(PostgreSqlContext context)
         {
             _context = context;    
         }
 
         // GET: Uzytkowniks
-        public  IEnumerable<Uzytkownik> Index()
+        public  IEnumerable<uzytkownik> Index()
         {
-            return  _context.Uzytkownik.ToList();
+            return  _context.uzytkowniko.ToList();
         }
 
         // GET: Uzytkowniks/Details/5
-        public  Uzytkownik Details(int? id)
+        public  uzytkownik Details(int? id)
         {
             if (id == null)
             {
                 return null;
             }
 
-            Uzytkownik uzytkownik =  _context.Uzytkownik.SingleOrDefault(m => m.Id == id);
+            uzytkownik uzytkownik =  _context.uzytkowniko.SingleOrDefault(m => m.Id == id);
             if (uzytkownik == null)
             {
                 return null;
@@ -48,7 +48,7 @@ namespace RestSerwerTen.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] Uzytkownik uzytkownik)
+        public async Task<IActionResult> Create([FromBody] uzytkownik uzytkownik)
         {
             System.Diagnostics.Debug.WriteLine("POST");
             System.Diagnostics.Debug.WriteLine("Uzytkownik imie: "+uzytkownik.imie);
@@ -67,7 +67,7 @@ namespace RestSerwerTen.Controllers
         }
 
         // GET: Uzytkowniks/Edit/5
-        public async Task<IActionResult> Update(int? id, [FromBody] Uzytkownik uzytkownik)
+        public async Task<IActionResult> Update(int? id, [FromBody] uzytkownik uzytkownik)
         {
             System.Diagnostics.Debug.WriteLine("update");
             System.Diagnostics.Debug.WriteLine("Uzytkownik imie: " + uzytkownik.imie);
@@ -79,7 +79,7 @@ namespace RestSerwerTen.Controllers
                 return NotFound();
             }
 
-            var uzytko = _context.Uzytkownik.SingleOrDefault(k => k.Id == id);
+            var uzytko = _context.uzytkowniko.SingleOrDefault(k => k.Id == id);
             uzytko.imie = uzytkownik.imie;
             uzytko.nazwisko = uzytkownik.nazwisko;
             System.Diagnostics.Debug.WriteLine("Znaleziony uzytkownik");
@@ -112,7 +112,7 @@ namespace RestSerwerTen.Controllers
                 return NotFound();
             }
 
-            var uzytkownik = await _context.Uzytkownik.SingleOrDefaultAsync(m => m.Id == id);
+            var uzytkownik = await _context.uzytkowniko.SingleOrDefaultAsync(m => m.Id == id);
             if (uzytkownik == null)
             {
                 return NotFound();
@@ -122,11 +122,21 @@ namespace RestSerwerTen.Controllers
             return Ok();
         }
 
-        
+        public uzytkownik logo(string mail,string haslo)
+        {
+            uzytkownik uz = _context.uzytkowniko.Single(k => k.mail == mail && k.haslo == haslo);
+            if (uz == null)
+            {
+                return null;
+            }else
+            {
+                return uz;
+            }
+        }
 
         private bool UzytkownikExists(int id)
         {
-            return _context.Uzytkownik.Any(e => e.Id == id);
+            return _context.uzytkowniko.Any(e => e.Id == id);
         }
     }
 }

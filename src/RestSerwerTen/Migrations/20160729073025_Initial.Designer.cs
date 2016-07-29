@@ -7,27 +7,31 @@ using RestSerwerTen.Models;
 
 namespace RestSerwerTen.Migrations
 {
-    [DbContext(typeof(RestSerwerTenContext))]
-    partial class RestSerwerTenContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(PostgreSqlContext))]
+    [Migration("20160729073025_Initial")]
+    partial class Initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
-                .HasAnnotation("ProductVersion", "1.0.0-rtm-21431")
-                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                .HasAnnotation("ProductVersion", "1.0.0-rtm-21431");
 
-            modelBuilder.Entity("RestSerwerTen.Models.Uzytkownik", b =>
+            modelBuilder.Entity("RestSerwerTen.Models.uzytkownik", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<string>("haslo");
+
                     b.Property<string>("imie");
+
+                    b.Property<string>("mail");
 
                     b.Property<string>("nazwisko");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Uzytkownik");
+                    b.ToTable("uzytkowniko");
                 });
         }
     }

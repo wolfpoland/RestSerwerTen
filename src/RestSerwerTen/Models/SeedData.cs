@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace RestSerwerTen.Models
 {
-    public static class SeedData
+    /*public static class SeedData
     {
         public static void Initialize(IServiceProvider serviceProvider)
         {
@@ -32,4 +32,5 @@ namespace RestSerwerTen.Models
             }
         }
     }
+    */
 }
