@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using RestSerwerTen.Models;
+using System.IO;
 
 namespace RestSerwerTen.Controllers
 {
@@ -132,6 +133,24 @@ namespace RestSerwerTen.Controllers
             {
                 return uz;
             }
+        }
+        public List<Linki> pliki(int id)
+        {
+            List<Linki> lista = new List<Linki>();
+            string pat= "C:/PicSwaper/Users"+"/U"+id;
+            string[] pliki=Directory.GetFiles(pat);
+            string[] pliki2 = new string[pliki.Length];
+            int x = 0;
+            foreach(string s in pliki)
+            {
+                pliki2[x] = Path.GetFileName(s);
+                x++;
+            }
+            foreach(string s in pliki2)
+            {
+                lista.Add(new Linki { Adres=pat+"/"+s});
+            }
+            return lista;
         }
 
         private bool UzytkownikExists(int id)
