@@ -140,15 +140,27 @@ namespace RestSerwerTen.Controllers
             string pat= "C:/PicSwaper/Users"+"/U"+id;
             string[] pliki=Directory.GetFiles(pat);
             string[] pliki2 = new string[pliki.Length];
+            DirectoryInfo di = new DirectoryInfo(pat);
+            List<DirectoryInfo> listDi = new List<DirectoryInfo>();
+            DirectoryInfo[] tabDi = di.GetDirectories();
+           
             int x = 0;
             foreach(string s in pliki)
             {
                 pliki2[x] = Path.GetFileName(s);
                 x++;
             }
+            for(int n = 0; n < di.GetDirectories().Count(); n++)
+            {
+                listDi.Add(tabDi[n]);
+            }
             foreach(string s in pliki2)
             {
-                lista.Add(new Linki { Adres=pat+"/"+s});
+                lista.Add(new Linki { Adres=pat+"/"+s, folder=false });
+            }
+            for(int n = 0; n < tabDi.Count(); n++)
+            {
+                lista.Add(new Linki { Adres =pat+"/"+ listDi[n].Name, folder=true });
             }
             return lista;
         }
